@@ -1,6 +1,20 @@
 ---
 batch_connect:
   template: vnc
+  extra_args: "-depth 24 -verbose +extension glx"
+  script_wrapper: |
+    export WEBSOCKIFY_CMD="websockify"
+    export PATH=$PATH:/opt/TurboVNC/bin:/opt/VirtualGL/bin
+    export TVNC_VGL=1
+    <%- if gpu_num.to_i > 0 -%>
+    gpu_bus_id=$(nvidia-smi --query-gpu=gpu_bus_id --format=csv,noheader | head -1 | cut -c5- | tr 'A-Z' 'a-z')
+    card_no=$(ls -ld /sys/bus/pci/devices/${gpu_bus_id}/drm/card* | awk -F/ '{print $NF}')
+    export VGL_DISPLAY=/dev/dri/${card_no}
+    export TVNC_VGLRUN="vglrun +v +wm -d $VGL_DISPLAY"
+    <%- else -%>
+    export TVNC_VGLRUN=""
+    <%- end -%>
+    %s
 script:
   native:
     - "--cpus-per-task"

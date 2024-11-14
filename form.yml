@@ -1,5 +1,5 @@
 ---
-cluster: farm
+cluster: hive
 form:
   - desktop
   - auto_accounts

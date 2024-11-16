@@ -3,6 +3,8 @@ batch_connect:
   template: vnc
 script:
   native:
+    - "--nodes"
+    - "1"
     - "--cpus-per-task"
     - "<%= cores %>"
     - "--mem"

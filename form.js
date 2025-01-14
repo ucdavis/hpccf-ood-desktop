@@ -17,19 +17,34 @@ function toggle_visibilty_of_form_group(form_id, show) {
 }
 
 /**
- *  Toggle the visibilty of the "gpu_num" field when a gpu queue is selected
+ *  Toggle the visibilty of the gpu form fields when a gpu queue is selected
  *
  *  low2: hidden
  *  gpuh: visible
  *  bgpu: visible
  */
-function toggle_gpu_num_visibility() {
+function toggle_gpu_form_visibility() {
   let queue = $("#batch_connect_session_context_auto_queues");
   console.log(queue.val());
+
+/**
+  let fields = [
+    '#batch_connect_session_context_gpu_num',
+    '#batch_connect_session_context_gpu_type'
+  ];
+
+  fields.map((id) => {
+    toggle_visibilty_of_form_group(id, queue.val().includes("gpu"));
+  }
+*/
 
   toggle_visibilty_of_form_group(
     '#batch_connect_session_context_gpu_num',
     queue.val().includes("gpu")
+  );
+  toggle_visibilty_of_form_group(
+    '#batch_connect_session_context_gpu_type',
+     queue.val().includes("gpu")
   );
 }
 
@@ -38,7 +53,8 @@ function toggle_gpu_num_visibility() {
  */
 function set_gpu_queue_change_handler() {
   let queue = $("#batch_connect_session_context_auto_queues");
-  queue.change(toggle_gpu_num_visibility);
+  queue.change(toggle_gpu_form_visibility);
+
 }
 
 /**
@@ -46,6 +62,6 @@ function set_gpu_queue_change_handler() {
  */
 $(document).ready(function() {
   /* Ensure that fields are shown or hidden based on what was set in the last session */
-  toggle_gpu_num_visibility();
+  toggle_gpu_form_visibility();
   set_gpu_queue_change_handler();
 });

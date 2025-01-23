@@ -25,7 +25,7 @@ script:
     - "<%= mem %>G"
     <% if gpu_num.to_i > 0 %>
     - "--gpus"
-    - "<%= gpu_type ? gpu_type+':' : '' %><%= gpu_num.to_s %>"
+    - "<%= gpu_type+':' unless gpu_type.blank? %><%= gpu_num %>"
     <%- end -%>
   job_environment:
     PATH: /bin:/sbin:/usr/bin:/usr/sbin:/snap/bin:/opt/puppetlabs/bin

@@ -11,7 +11,6 @@ function toggle_visibilty_of_form_group(form_id, show) {
   if(show) {
     parent.show();
   } else {
-    form_element.val('');
     parent.hide();
   }
 }
@@ -25,27 +24,19 @@ function toggle_visibilty_of_form_group(form_id, show) {
  */
 function toggle_gpu_form_visibility() {
   let queue = $("#batch_connect_session_context_auto_queues");
-  console.log(queue.val());
+  let gpu_num = $('#batch_connect_session_context_gpu_num');
+  let gpu_type = $('#batch_connect_session_context_gpu_type');
 
-/**
-  let fields = [
-    '#batch_connect_session_context_gpu_num',
-    '#batch_connect_session_context_gpu_type'
-  ];
+  toggle_visibilty_of_form_group(gpu_num, queue.val().includes("gpu"));
+  gpu_num.val(0);
 
-  fields.map((id) => {
-    toggle_visibilty_of_form_group(id, queue.val().includes("gpu"));
-  }
-*/
+  toggle_visibilty_of_form_group(gpu_type, queue.val().includes("gpu"));
 
-  toggle_visibilty_of_form_group(
-    '#batch_connect_session_context_gpu_num',
-    queue.val().includes("gpu")
-  );
-  toggle_visibilty_of_form_group(
-    '#batch_connect_session_context_gpu_type',
-     queue.val().includes("gpu")
-  );
+  // let fields = [ gpu_num, gpu_type ];
+
+  // fields.map((id) => {
+  //   toggle_visibilty_of_form_group(id, queue.val().includes("gpu"));
+  // })
 }
 
 /**

@@ -5,6 +5,8 @@ batch_connect:
   extra_args: "-depth 24 -verbose +extension glx"
 script:
   native:
+    - "--export"
+    - "ALL"
     - "--cpus-per-task"
     - "<%= cores %>"
     - "--mem"
